@@ -1,6 +1,6 @@
 {
   "name": "maquina-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript finite state machine (FSM)",
   "main": "./lib/fsm",
   "scripts": {
