@@ -8,7 +8,7 @@ const StateMachine = function(states, transitions, initialState = null) {
 		// Create transitions closures
 		this[t.trigger] = () => {
 			console.log('executing trigger:', t.trigger);
-			if(t.from !== this.state ) {
+			if(t.source !== this.state ) {
 				console.error(`invalid transition: ${this.state} -> ${t.target}`);
 				return false;
 			}
@@ -20,7 +20,7 @@ const StateMachine = function(states, transitions, initialState = null) {
 
 	this.initialize = (initialState) => {
 		if(this.state) {
-			console.error('Machine is alreade initialized to:', this.state);
+			console.error('Machine is already initialized to:', this.state);
 			return false;
 		}
 

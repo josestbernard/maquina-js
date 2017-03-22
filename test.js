@@ -7,15 +7,15 @@ let machine;
 
 test.beforeEach('initialize', t => {
 	// This runs before all tests
-  const states = ["solid", "liquid", "gas"];
+  const states = ['solid', 'liquid', 'gas'];
 
   const transitions = [
   	{ trigger: 'melt', source: 'solid', target: 'liquid' },
     { trigger: 'boil', source: 'liquid', target: 'gas' },
-    { trigger: 'condensate', source: 'gas', target: 'water' },
-  ]
+    { trigger: 'condensate', source: 'gas', target: 'liquid' },
+  ];
 
-  machine = new StateMachine(states, transitions, 'water');
+  machine = new StateMachine(states, transitions, 'solid');
 });
 
 test.afterEach('destroy', t => {
@@ -24,12 +24,12 @@ test.afterEach('destroy', t => {
 
 test('valid trasition', t => {
   machine.melt();
-  console.log('current state:', machine.getState());
-	t.pass();
+  const currentState = machine.getState();
+	t.is(currentState, 'liquid');
 });
 
-test('bar', async t => {
-	const bar = Promise.resolve('bar');
-
-	t.is(await bar, 'bar');
+test('invalid trasition', t => {
+  machine.boil();
+  const currentState = machine.getState();
+  t.is(currentState, 'solid');
 });
