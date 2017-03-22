@@ -1,1 +1,2 @@
-# Simple Finite State Machine (FSM)
+# Javascript Finite State Machine (FSM)
+## Under construction...
