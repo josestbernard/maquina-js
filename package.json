@@ -1,13 +1,16 @@
 {
-  "name": "maquina",
+  "name": "maquina-js",
   "version": "1.0.0",
   "description": "Javascript finite state machine (FSM)",
-  "main": "index.js",
+  "main": "./lib/fsm",
   "scripts": {
-    "test": "ava --verbose",
-    "test-watch": "npm test -- --watch",
-    "start": "node index.js"
+    "test": "ava --verbose"
   },
+  "keywords": [
+    "states",
+    "machine",
+    "fsm"
+  ],
   "author": "josestbernard",
   "license": "ISC",
   "dependencies": {
