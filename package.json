@@ -1,14 +1,14 @@
 {
-  "name": "simple-fsm",
+  "name": "maquina",
   "version": "1.0.0",
-  "description": "",
+  "description": "Javascript finite state machine (FSM)",
   "main": "index.js",
   "scripts": {
     "test": "ava --verbose",
     "test-watch": "npm test -- --watch",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "josestbernard",
   "license": "ISC",
   "dependencies": {
     "ava": "^0.18.2"
