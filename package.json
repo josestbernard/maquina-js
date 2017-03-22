@@ -1,0 +1,16 @@
+{
+  "name": "simple-fsm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava --verbose",
+    "test-watch": "npm test -- --watch",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ava": "^0.18.2"
+  }
+}
