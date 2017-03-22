@@ -1,7 +1,9 @@
 # Javascript Finite State Machine (FSM)
 
+Inspired by [transitions](https://github.com/tyarkoni/transitions)
+
 ## simple usage example
-```
+```javascript
 const StateMachine = require('maquina-js');
 const states = ['solid', 'liquid', 'gas'];
 
@@ -18,5 +20,3 @@ const states = ['solid', 'liquid', 'gas'];
   machine.getState(); // -> liquid
 
 ```
-
-under construction...
