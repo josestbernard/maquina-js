@@ -1,8 +1,8 @@
 const StateMachine = function(states, transitions, initialState = null) {
-	this.state = initialState;
-	this.states = states;
+	this.state = initialState;  // TODO: validate it's part of states[]
+	this.states = states;  // TODO: validate structure and uniqueness
 
-	this.transitions =transitions;
+	this.transitions =transitions;  // TODO: validate structure and uniqueness
 
 	this.transitions.forEach((t) => {
 		// Create transitions closures
@@ -28,13 +28,20 @@ const StateMachine = function(states, transitions, initialState = null) {
 			this.state=initialState;
 		}
 		else {
-			console.error(`error initializing state maching, state:${initialState} is not part of ${this.states}`);
+			console.error(`Error initializing state machine: state: ${initialState} is not part of ${this.states}`);
 			return false;
 		}
 		return true;
 	}
 
 	this.getState = () => this.state;
+
+	this.addTransition = (transition) => this.transitions.push(transition); // TODO: validate structure and uniqueness
+
+	this.removeTransition = (trigger) => {
+		const transitionIndex = this.transitions.findIndex((t) => t.trigger === trigger);
+		this.transitions.slice(transitionIndex, 1);
+	}
 
 	return this;
 };
