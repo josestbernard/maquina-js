@@ -1,6 +1,6 @@
 {
   "name": "maquina-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript finite state machine (FSM)",
   "main": "./lib/fsm",
   "scripts": {
@@ -14,6 +14,7 @@
   "author": "josestbernard",
   "license": "ISC",
   "dependencies": {
-    "ava": "^0.18.2"
+    "ava": "^0.18.2",
+    "log": "^1.4.0"
   }
 }

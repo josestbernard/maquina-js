@@ -2,7 +2,7 @@
 
 ## simple usage example
 ```
-const StateMachine = require('maquina');
+const StateMachine = require('maquina-js');
 const states = ['solid', 'liquid', 'gas'];
 
   const transitions = [
