@@ -12,10 +12,9 @@ test.beforeEach('initialize', t => {
   const transitions = [
   	{ trigger: 'melt', source: 'solid', target: 'liquid' },
     { trigger: 'boil', source: 'liquid', target: 'gas' },
-    { trigger: 'condensate', source: 'gas', target: 'liquid' },
   ];
 
-  machine = new StateMachine(states, transitions, 'solid');
+  machine = new StateMachine(states, transitions);
 });
 
 test.afterEach('destroy', t => {
@@ -23,13 +22,39 @@ test.afterEach('destroy', t => {
 })
 
 test('valid trasition', t => {
+  machine.initialize('solid');
   machine.melt();
   const currentState = machine.getState();
 	t.is(currentState, 'liquid');
 });
 
 test('invalid trasition', t => {
+  machine.initialize('solid');
   machine.boil();
   const currentState = machine.getState();
   t.is(currentState, 'solid');
+});
+
+function beforeTransition() {
+  return true;
+}
+
+function failBeforeTransition() {
+  return false;
+}
+
+test('with before hook', t => {
+  machine.initialize('gas');
+  machine.addTransition( { trigger: 'condensate', source: 'gas', target: 'liquid', before: beforeTransition } );
+  machine.condensate();
+  const currentState = machine.getState();
+  t.is(currentState, 'liquid');
+});
+
+test('with failing before hook', t => {
+  machine.initialize('gas');
+  machine.addTransition( { trigger: 'condensate', source: 'gas', target: 'liquid', before: failBeforeTransition } );
+  machine.condensate();
+  const currentState = machine.getState();
+  t.is(currentState, 'gas');
 });
