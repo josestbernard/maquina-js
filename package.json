@@ -1,16 +1,22 @@
 {
   "name": "maquina-js",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Javascript finite state machine (FSM)",
+  "homepage": "https://github.com/josestbernard/maquina-js",
   "main": "./lib/fsm",
   "scripts": {
     "test": "ava --verbose"
   },
   "keywords": [
     "states",
+    "state",
     "machine",
     "fsm"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josestbernard/maquina-js.git"
+  },
   "author": "josestbernard",
   "license": "ISC",
   "dependencies": {
