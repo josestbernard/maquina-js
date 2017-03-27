@@ -1,9 +1,7 @@
 const test = require('ava');
 const StateMachine = require('../lib/fsm')
 
-
 let machine;
-
 
 test.beforeEach('initialize', t => {
 	// This runs before all tests
@@ -35,11 +33,21 @@ test('invalid trasition', t => {
   t.is(currentState, 'solid');
 });
 
+test('unexisting trasition', t => {
+  machine.initialize('solid');
+  try {
+    machine.foo();
+  } catch(e) {
+    const currentState = machine.getState();
+    t.is(currentState, 'solid');
+  }
+});
+
 function beforeTransition() {
   return true;
 }
 
-function failBeforeTransition() {
+function failBeforeTransition(a, b ,c) {
   return false;
 }
 
@@ -57,4 +65,10 @@ test('with failing before hook', t => {
   machine.condensate();
   const currentState = machine.getState();
   t.is(currentState, 'gas');
+});
+
+test('trigger remove', t => {
+  machine.initialize('solid');
+  machine.removeTransition('melt');
+  t.is(machine.melt, undefined);
 });

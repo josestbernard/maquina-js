@@ -2,7 +2,7 @@
 
 Inspired by [transitions](https://github.com/tyarkoni/transitions)
 
-## simple usage example
+## basic usage
 ```javascript
 const StateMachine = require('maquina-js');
 const states = ['solid', 'liquid', 'gas'];
@@ -20,3 +20,28 @@ const states = ['solid', 'liquid', 'gas'];
   machine.getState(); // -> liquid
 
 ```
+
+## adding and removing transitions
+
+```javascript
+machine.addTransition({ trigger: 'condensate', source: 'gas', target: 'liquid'});
+machine.removeTransition('condensate');
+```
+
+## before and after hooks
+
+```javascript
+
+function beforeTransition() {
+  // pre-transition code
+  return true; // or false for preventing the transition from being executed
+}
+
+function afterTransition() {
+  // post-transition code
+  return true;
+}
+
+machine.addTransition( { trigger: 'condensate', source: 'gas', target: 'liquid', before: beforeTransition, after: afterTransition } );
+```
+
