@@ -22,7 +22,7 @@
   "dependencies": {
     "ava": "^0.18.2",
     "log": "^1.4.0"
-  }
+  },
   "engines": {
     "node": "7.6.0"
   }
