@@ -1,7 +1,14 @@
 # Javascript Finite State Machine (FSM)
 
+[![Build Status](https://travis-ci.org/josestbernard/maquina-js.svg?branch=master)](https://travis-ci.org/josestbernard/maquina-js)
+
 Inspired by [transitions](https://github.com/tyarkoni/transitions)
 
+## installation
+
+```bash
+npm install --save maquina-js
+```
 ## basic usage
 ```javascript
 const StateMachine = require('maquina-js');
