@@ -6,8 +6,8 @@
   "main": "./lib/fsm",
   "scripts": {
     "compile": "babel --presets es2015,stage-0 -d lib/ src/",
-    "prepublish": "npm run test",
-    "test": "npm run compile && ava"
+    "prepublish": "npm run compile",
+    "test": "ava"
   },
   "keywords": [
     "states",
