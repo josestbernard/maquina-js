@@ -1,10 +1,12 @@
 {
   "name": "maquina-js",
-  "version": "1.0.23",
+  "version": "1.0.1",
   "description": "maquina.js, just another finite state machine (FSM)",
   "homepage": "https://github.com/josestbernard/maquina-js",
   "main": "./lib/fsm",
   "scripts": {
+    "compile": "babel --presets es2015,stage-0 -d lib/ src/",
+    "prepublish": "npm run compile",
     "test": "ava --verbose"
   },
   "keywords": [
@@ -23,7 +25,9 @@
     "ava": "^0.18.2",
     "log": "^1.4.0"
   },
-  "engines": {
-    "node": "7.6.0"
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0"
   }
 }
