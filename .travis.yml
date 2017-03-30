@@ -1,7 +1,6 @@
 language: node_js
 sudo: false
 node_js:
-- iojs
 - '4'
 install:
 - npm install
@@ -9,5 +8,7 @@ script:
 - npm test
 deploy:
   provider: npm
+  on:
+    tags: true
   api_key:
     secure: no2iwEo0sqrjH4NggxHVWlWt/hHYGl7H9+G0WBih/7qrtxh6Aa1qRCsMfvpJcNycBWxtQzcjbxEKTZZpV5+mr4LWpcCZ+SAT6Db0dkugGKJ1rvFrs7atUXqngt8kd7QQCrqYaCSRZABoxVg/wCyNB1lHXOd80taNSI+VHKCbx/6jbCZp5wHnf/0IEYSFOM4/l29TfBff642WfZsjipZiIgIcSRHweyeuJ5k6ZShB7IIF7iYdFJBwU46a+XSOVbZHu+zQvwyGUfx9HAdyD3dECbuc5KwAv+AcBtlufs2XhGgH53/36wmZ8ygOwdSuqpj3Zb/KK5OdpWLDmUBhYN8Vw14yJprK87ifQngORQWqngWFNhzPsZrejlJR5ifzv9O81H0JVR8ubGPAzQPf7wSw+sVxcDYsyER3qRhMQUNxMdClpqImibny996b8WcImj5iLUs2jMDM8LM4nJdudOZtVX9hKoCb33sOi+2+5R6oZ/FM7O21FP41rpK461GQmmMuTvB0NYPBqRNeQpYuaq/Vu0e5Eutl6xV3zfvE8u1MeAXGzMiU3XxAqf8/dHiYNXp5aU2C0x8EfjytC3VtyMFN82x7hBxxz47JxE6sb/98kBCmW9J68i0MP7sX/u97OTZkpAjmVFPVVFgPC+LUiTwN/E6+whqOPmXVxUUmfajiY4U=
