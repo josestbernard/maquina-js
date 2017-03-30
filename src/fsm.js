@@ -1,4 +1,4 @@
-const Log = require('log')
+const Log = require('log');
 const log = new Log();
 
 const MaquinaError = (message) => {
@@ -20,7 +20,7 @@ const StateMachine = function (states, transitions = [], initialState = null) {
 			return false;
 		}
 		else {
-			if (!this.states.includes(initialState)) {
+			if (this.states.indexOf(initialState) === -1) {
 				throw MaquinaError('invalid initial state');
 			}
 			this.state = initialState;
@@ -30,8 +30,8 @@ const StateMachine = function (states, transitions = [], initialState = null) {
 
 	this.isValidTransition = (t) => {
 		return typeof t === 'object'
-			&& this.states.includes(t.source)
-			&& this.states.includes(t.target)
+			&& this.states.indexOf(t.source) > -1
+			&& this.states.indexOf(t.target) > -1
 			&& this[t.trigger] === undefined
 			&& isValidIdentifier(t.trigger)
 			&& (!t.before || typeof t.before === 'function')
@@ -39,7 +39,7 @@ const StateMachine = function (states, transitions = [], initialState = null) {
 	}
 
 	this.isValidState = (s) => {
-		return !this.states.includes(s)
+		return this.states.indexOf(s) === -1
 			&& typeof s === 'string'
 	}
 
@@ -123,7 +123,7 @@ const StateMachine = function (states, transitions = [], initialState = null) {
 		this.addTransition(transitions[i]);
 	}
 
-	if (initialState && !this.states.includes(initialState)) {
+	if (initialState && this.states.indexOf(initialState) === -1) {
 		throw MaquinaError('invalid initial state');
 	}
 
