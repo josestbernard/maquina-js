@@ -1,4 +1,4 @@
-# Maqiuna.js, a javascript Finite State Machine (FSM)
+# Maquina.js, a javascript Finite State Machine (FSM)
 
 
 [![Build Status](https://travis-ci.org/josestbernard/maquina-js.svg?branch=master)](https://travis-ci.org/josestbernard/maquina-js)
