@@ -1,6 +1,6 @@
 const test = require('ava');
 //const StateMachine = require('../lib/fsm')
-const StateMachine = require('../src/fsm')
+const StateMachine = require('../lib/fsm')
 
 let machine;
 
