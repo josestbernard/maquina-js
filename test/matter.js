@@ -101,9 +101,7 @@ test('state trigger removal', t => {
 
 test('state removal', t => {
   machine.initialize('liquid');
-  console.log('before>>>', machine.states);
   machine.removeState('solid');
-  console.log('after>>>', machine.states);
 
   machine.freeze();
   const currentState = machine.getState();

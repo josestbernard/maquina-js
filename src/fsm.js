@@ -1,5 +1,4 @@
-const Log = require('log');
-const log = new Log();
+const debug = require('debug')('maquina-js')
 
 const MaquinaError = (message) => {
   const e = new Error('MaquinaError');
@@ -12,7 +11,7 @@ function isValidIdentifier(id) { return /[a-zA-Z_$]/.test(id) } // TODO: check f
 function transitionExists(t, machineTransitions) {
   if (machineTransitions[t.trigger]) {
     if (machineTransitions[t.trigger].some((element) => element.source === t.source)) {
-      log.error(`trigger ${t.trigger} already exists for state ${t.source}`)
+      debug(`error: trigger ${t.trigger} already exists for state ${t.source}`)
       return true
     }
   }
@@ -25,7 +24,7 @@ const StateMachine = function (states, transitions = {}, initialState = null) {
 
   this.initialize = (initialState) => {
     if (this.state) {
-      log.error(`state machine is already initialized (current state: ${this.state})`);
+      debug(`error: state machine is already initialized (current state: ${this.state})`);
       return false;
     }
     else {
@@ -61,7 +60,7 @@ const StateMachine = function (states, transitions = {}, initialState = null) {
   // add and remove methods
   this.addTransition = (t) => {
     if (!this.isValidTransition(t)) {
-      log.error('can not add invalid transition', t);
+      debug('error: can not add invalid transition', t);
       return false;
     }
 
@@ -69,30 +68,30 @@ const StateMachine = function (states, transitions = {}, initialState = null) {
       this.transitions[t.trigger] = [];
     }
     this.transitions[t.trigger].push(t); // TODO: remove trigger prop
-    log.debug(`adding transition ${t.trigger} to ${t.source}`);
+    debug(`adding transition ${t.trigger} to ${t.source}`);
     this[t.trigger] = () => {
       const transitionsArray = this.transitions[t.trigger];
       const transitionToRun = transitionsArray.find((element) => element.source === this.state);
 
       if (!transitionToRun) {
-        log.error(`invalid trigger for ${this.state}: ${t.trigger}`);
+        debug(`error: invalid trigger for ${this.state}: ${t.trigger}`);
         return false;
       }
 
       if (transitionToRun.before) {
         const beforeResult = transitionToRun.before();
         if (typeof beforeResult !== 'boolean') {
-          log.error('Invalid before hook output: expected boolean, got:', typeof beforeResult);
+          debug('error: Invalid before hook output: expected boolean, got:', typeof beforeResult);
           throw MaquinaError(`invalid before hook for trigger: ${t.trigger}`);
         }
         if (beforeResult === false) {
-          log.debug(`before hook failed for trigger ${t.trigger}`);
+          debug(`before hook failed for trigger ${t.trigger}`);
           return false;
         }
       }
-      log.debug(`executing trigger: ${t.trigger}`);
+      debug(`executing trigger: ${t.trigger}`);
 
-      log.debug(`${this.state} -> ${transitionToRun.target}`);
+      debug(`${this.state} -> ${transitionToRun.target}`);
       this.state = transitionToRun.target;
 
       if (transitionToRun.after) {
@@ -104,7 +103,7 @@ const StateMachine = function (states, transitions = {}, initialState = null) {
 
   this.addState = (s) => {
     if (!this.isValidState(s)) {
-      log.error('invalid state', s);
+      debug('error: invalid state', s);
       return false;
     }
     this.states.push(s);
@@ -130,7 +129,7 @@ const StateMachine = function (states, transitions = {}, initialState = null) {
     })
 
     // remove state
-    log.debug('removing state', s);
+    debug('removing state', s);
     this.states.splice(stateIndex, 1);
     return true;
   }
@@ -139,14 +138,14 @@ const StateMachine = function (states, transitions = {}, initialState = null) {
 
     // full trigger removal
     if (!source) {
-      log.debug(`removing all transitions for trigger ${trigger}`);
+      debug(`removing all transitions for trigger ${trigger}`);
       delete this.transitions[trigger];
       this[trigger] = undefined;
       return;
     }
 
     // state trigger removal
-    log.debug(`removing transition ${trigger} from ${source}`);
+    debug(`removing transition ${trigger} from ${source}`);
 
     const transitionsArray = this.transitions[trigger];
     const transitionIndex = transitionsArray.findIndex((element) => element.source === source)
