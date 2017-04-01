@@ -1,6 +1,6 @@
 {
   "name": "maquina-js",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "maquina.js, just another finite state machine (FSM)",
   "homepage": "https://github.com/josestbernard/maquina-js",
   "main": "./lib/fsm",
@@ -23,8 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "ava": "^0.18.2",
-    "debug": "^2.6.3",
-    "log": "^1.4.0"
+    "debug": "^2.6.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
