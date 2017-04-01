@@ -5,12 +5,13 @@ let machine;
 
 test.beforeEach('initialize', t => {
 	// This runs before all tests
-  const states = ['solid', 'liquid', 'gas'];
+  const states = ['solid', 'liquid', 'gas', 'plasma'];
 
   const transitions = [
-  	{ trigger: 'melt', source: 'solid', target: 'liquid' },
-    { trigger: 'boil', source: 'liquid', target: 'gas' },
-  ];
+    { trigger: 'melt', source: 'solid', target: 'liquid' },
+    { trigger: 'evaporate', source: 'liquid', target: 'gas', before: beforeTransition },
+    { trigger: 'sublimate', source: 'solid', target: 'gas', before: failBeforeTransition },
+];
 
   machine = new StateMachine(states, transitions);
 });
@@ -28,7 +29,7 @@ test('valid trasition', t => {
 
 test('invalid trasition', t => {
   machine.initialize('solid');
-  machine.boil();
+  machine.evaporate();
   const currentState = machine.getState();
   t.is(currentState, 'solid');
 });
@@ -51,20 +52,26 @@ function failBeforeTransition(a, b ,c) {
   return false;
 }
 
-test('with before hook', t => {
-  machine.initialize('gas');
-  machine.addTransition( { trigger: 'condensate', source: 'gas', target: 'liquid', before: beforeTransition } );
-  machine.condensate();
+test ('adding transitions', t => {
+  machine.initialize('gas')
+  machine.addTransition({ trigger: 'ionize', source: 'gas', target: 'plasma' });
+  machine.ionize();
   const currentState = machine.getState();
-  t.is(currentState, 'liquid');
+  t.is(currentState, 'plasma');
+});
+
+test('with before hook', t => {
+  machine.initialize('liquid');
+  machine.evaporate();
+  const currentState = machine.getState();
+  t.is(currentState, 'gas');
 });
 
 test('with failing before hook', t => {
-  machine.initialize('gas');
-  machine.addTransition( { trigger: 'condensate', source: 'gas', target: 'liquid', before: failBeforeTransition } );
-  machine.condensate();
+  machine.initialize('solid');
+  machine.sublimate();
   const currentState = machine.getState();
-  t.is(currentState, 'gas');
+  t.is(currentState, 'solid');
 });
 
 test('trigger remove', t => {
