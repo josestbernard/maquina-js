@@ -62,7 +62,7 @@ test ('adding transitions', t => {
   t.is(currentState, 'plasma');
 });
 
-test.only ('adding duplicated trigger for source', t => {
+test ('adding duplicated trigger for source', t => {
   machine.initialize('gas')
   machine.addTransition({ trigger: 'ionize', source: 'gas', target: 'plasma' });
   machine.addTransition({ trigger: 'ionize', source: 'gas', target: 'liquid' });
