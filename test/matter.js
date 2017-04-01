@@ -1,5 +1,6 @@
 const test = require('ava');
-const StateMachine = require('../lib/fsm')
+//const StateMachine = require('../lib/fsm')
+const StateMachine = require('../src/fsm')
 
 let machine;
 
@@ -9,6 +10,7 @@ test.beforeEach('initialize', t => {
 
   const transitions = [
     { trigger: 'melt', source: 'solid', target: 'liquid' },
+    { trigger: 'freeze', source: 'liquid', target: 'solid' },
     { trigger: 'evaporate', source: 'liquid', target: 'gas', before: beforeTransition },
     { trigger: 'sublimate', source: 'solid', target: 'gas', before: failBeforeTransition },
 ];
@@ -60,6 +62,15 @@ test ('adding transitions', t => {
   t.is(currentState, 'plasma');
 });
 
+test.only ('adding duplicated trigger for source', t => {
+  machine.initialize('gas')
+  machine.addTransition({ trigger: 'ionize', source: 'gas', target: 'plasma' });
+  machine.addTransition({ trigger: 'ionize', source: 'gas', target: 'liquid' });
+  machine.ionize();
+  const currentState = machine.getState();
+  t.is(currentState, 'plasma');
+});
+
 test('with before hook', t => {
   machine.initialize('liquid');
   machine.evaporate();
@@ -74,8 +85,29 @@ test('with failing before hook', t => {
   t.is(currentState, 'solid');
 });
 
-test('trigger remove', t => {
+test('full trigger removal', t => {
   machine.initialize('solid');
   machine.removeTransition('melt');
   t.is(machine.melt, undefined);
 });
+
+test('state trigger removal', t => {
+  machine.initialize('solid');
+  machine.removeTransition('melt', 'solid');
+  machine.melt();
+  const currentState = machine.getState();
+  t.is(currentState, 'solid');
+});
+
+test('state removal', t => {
+  machine.initialize('liquid');
+  console.log('before>>>', machine.states);
+  machine.removeState('solid');
+  console.log('after>>>', machine.states);
+
+  machine.freeze();
+  const currentState = machine.getState();
+  t.is(currentState, 'liquid');
+  t.is(machine.states.indexOf('solid'), -1);
+}
+);
